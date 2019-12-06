@@ -15,43 +15,43 @@ public class GUIcontroller implements Runnable {
 	}
 	@Override
 	public synchronized void run() {
-		try {
-			wait();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		while(cmd == null) {
+			try {
+				wait();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}	
 		}
-		while(cmd == "Connect") {
+		if(cmd == "Connect") {
 			connect.setEnabled(false);
 			start.setEnabled(true);
 			disconnect.setEnabled(true);
 			cmd = null;
 		}
-		while(cmd == "Start") {
+		if(cmd == "Start") {
 			stop.setEnabled(true);
 			start.setEnabled(false);
 			clear.setEnabled(true);
+			disconnect.setEnabled(false);
 			cmd = null;
 		}
-		while(cmd == "Stop") {
+		if(cmd == "Stop") {
 			stop.setEnabled(false);
 			start.setEnabled(true);
+			disconnect.setEnabled(true);
 			cmd = null;
 		}
-		while(cmd == "Clear") {
+		if(cmd == "Clear") {
 			cmd = null;
 		}
-		while(cmd == "Disconnect") {
+		if(cmd == "Disconnect") {
 			disconnect.setEnabled(false);
 			connect.setEnabled(true);
+			start.setEnabled(false);
+			stop.setEnabled(false);
+			clear.setEnabled(false);
 			cmd = null;
 		}
-		while(cmd == null)
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 	}
 	
 }

@@ -27,6 +27,11 @@ public class Start implements Runnable {
 			String data;
 			int c = 0;
 			int pos = 0;
+			
+			for(int i = 0; i < griglia.length; i++) {
+				griglia[i].setBackground(Color.lightGray);
+			}
+			
 			while(scan.hasNextLine()) {
 				data = scan.nextLine();
 				String boh[] = data.split(";");
