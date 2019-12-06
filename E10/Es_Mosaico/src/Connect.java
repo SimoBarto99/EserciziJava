@@ -1,24 +1,27 @@
 import java.awt.Frame;
 import java.io.IOException;
 import java.net.Socket;
-
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class Connect implements Runnable {
 	Frame f;
 	Socket s;
 	String cmd;
-	public Connect(Frame f, String cmd, Socket s) {
+	JTextField ip;
+	JTextField porta;
+	public Connect(Frame f, String cmd, Socket s, JTextField ip, JTextField porta) {
 		this.f = f;
 		this.s = s;
 		this.cmd = cmd;
+		this.ip = ip;
+		this.porta = porta;
 	}
 	
 	@Override
 	public synchronized void run() {
 		try {
 			while(cmd == "Connect") {
-			s = new Socket("127.0.0.1", 4400);
+			s = new Socket(ip.getText(), Integer.parseInt(porta.getText()));
 			break;
 			}
 			System.out.println("Connesso");
