@@ -12,11 +12,11 @@ public class Disconnect implements Runnable {
 	@Override
 	public synchronized void run() {
 		try {
-			//contatta il serever
 			PrintWriter out = new PrintWriter(s.getOutputStream());
 			out.println("disconnect");
 			out.flush();
 			s.close();
+			System.out.println("Disconnetto");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

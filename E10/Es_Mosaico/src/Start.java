@@ -1,39 +1,48 @@
+import java.awt.Color;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import javax.swing.JPanel;
+
 public class Start implements Runnable {
 	Socket s;
 	String cmd;
-	public Start(String cmd, Socket s) {
+	JPanel[] griglia;
+	public Start(String cmd, Socket s, JPanel griglia[]) {
 		this.cmd = cmd;
 		this.s = s;
+		this.griglia = griglia;
 	}
 	
 	
 	@Override
 	public void run() {
 		try {
-			System.out.println("ao ");
 			PrintWriter bir = new PrintWriter(s.getOutputStream());
 			Scanner scan = new Scanner(s.getInputStream());
 			bir.println("start");
 			bir.flush();
 			String data;
-			String c = null;
-			String pos = null;
-			while(c != "-1" && pos != "-1") {
-			data = scan.nextLine();
-			String boh[] = data.split(";");
-			c = boh[0];
-			pos = boh[1];
-			System.out.println("colore" + c + "posizione" + pos);
+			int c = 0;
+			int pos = 0;
+			while(scan.hasNextLine()) {
+				data = scan.nextLine();
+				String boh[] = data.split(";");
+				pos = Integer.parseInt(boh[0]);
+				c = Integer.parseInt(boh[1]);
+				Color col = new Color(c);
+				if(c != -1 && pos !=-1)
+				griglia[pos].setBackground(col);
+				System.out.println("colore" + c + "posizione" + pos);
+				if(c == -1 && pos == -1)
+					break;
 			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
-
 }

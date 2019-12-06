@@ -1,10 +1,15 @@
+import java.awt.Frame;
 import java.io.IOException;
 import java.net.Socket;
 
+import javax.swing.JButton;
+
 public class Connect implements Runnable {
+	Frame f;
 	Socket s;
 	String cmd;
-	public Connect(String cmd, Socket s) {
+	public Connect(Frame f, String cmd, Socket s) {
+		this.f = f;
 		this.s = s;
 		this.cmd = cmd;
 	}

@@ -9,13 +9,13 @@ public class MosaicoFrame extends JFrame implements ActionListener {
 	public static final String titolo = "Simone Bartolini 1842781"; 
 	protected static String cmd = null;
 	protected Socket s;
+	protected JButton connect, start, stop, disconnect, clear;
+	protected JPanel[]  griglia = new JPanel[256];
 	protected static final String CONNECT = "Connect";
 	protected static final String START = "Start";
 	protected static final String STOP = "Stop";
 	protected static final String DISCONNECT = "Disconnect";
 	protected static final String CLEAR = "Claear";
-	protected static enum stato {CONNECT, START, STOP, DISCONNECT, CLEAR};
-	stato currentstate = null;
 	public MosaicoFrame() {
 		super(titolo);
 		JFrame tot  = new JFrame();
@@ -24,28 +24,35 @@ public class MosaicoFrame extends JFrame implements ActionListener {
 		JPanel bottoni = new JPanel();
 		JTextField ipAddres = new JTextField();
 		JTextField porta = new JTextField();
+		
 		JButton start = new JButton("Start");
+//		start.setEnabled(false);
 		start.setActionCommand(START);
 		start.addActionListener(this);
 		
-		JButton stop = new JButton("Stop");
+		stop = new JButton("Stop");
+//		stop.setEnabled(false);
 		stop.setActionCommand(STOP);
 		stop.addActionListener(this);
 		
-		JButton connect = new JButton("Connect");
+		connect = new JButton("Connect");
 		connect.setActionCommand(CONNECT);
 		connect.addActionListener(this);
 		
-		JButton disconnect = new JButton("Disconnect");
+		disconnect = new JButton("Disconnect");
+//		disconnect.setEnabled(false);
 		disconnect.setActionCommand(DISCONNECT);
 		disconnect.addActionListener(this);
 		
-		JButton clear = new JButton("Clear");
+		clear = new JButton("Clear");
+//		clear.setEnabled(false);
 		clear.setActionCommand(CLEAR);
 		clear.addActionListener(this);
 		
-		for(int i = 0; i < 16; i++) {
-			mosaico.add(new JPanel());
+		for(int i = 0; i < 256; i++) {
+			JPanel a = new JPanel();
+			griglia[i] = a;
+			mosaico.add(griglia[i]);
 		}
 		
 		data.add(start);
@@ -94,27 +101,25 @@ public class MosaicoFrame extends JFrame implements ActionListener {
 		}
 	}	
 	public void onConnect() {
-		//		System.out.println(cmd);
-		c = new Connect(cmd, s);
+		c = new Connect(this, cmd, s);
 		Thread t1 = new Thread(c);
 		t1.start();
 	}
 	public void onStart() {
-//		System.out.println(cmd);
-		Thread t2 = new Thread(new Start(cmd, this.c.getS()));
+		Thread t2 = new Thread(new Start(cmd, this.c.getS(), griglia));
 		t2.start();
 	}
 	public void onStop() {
-//		System.out.println(cmd);
 		Thread t3 = new Thread(new Stop(cmd, this.c.getS()));
 		t3.start();
 	}
 	public void onDisconnect() {
-//		System.out.println(cmd);
 		Thread t4 = new Thread(new Disconnect(cmd, this.c.getS()));
 		t4.start();
 	}
 	public void onClear() {
+		Thread t4 = new Thread(new Clear(cmd, s, griglia));
+		t4.start();
 		System.out.println(cmd);
 	}
 }
