@@ -31,7 +31,7 @@ public class GUIcontroller implements Runnable {
 		if(cmd == "Start") {
 			stop.setEnabled(true);
 			start.setEnabled(false);
-			clear.setEnabled(true);
+			clear.setEnabled(false);
 			disconnect.setEnabled(false);
 			cmd = null;
 		}
@@ -39,6 +39,7 @@ public class GUIcontroller implements Runnable {
 			stop.setEnabled(false);
 			start.setEnabled(true);
 			disconnect.setEnabled(true);
+			clear.setEnabled(true);
 			cmd = null;
 		}
 		if(cmd == "Clear") {
