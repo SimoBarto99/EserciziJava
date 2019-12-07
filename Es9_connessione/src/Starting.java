@@ -23,17 +23,16 @@ public class Starting extends Frame implements Runnable {
 	}
 	@Override
 	public synchronized void run() {
-		while(cmd != START) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+//		while(cmd != START) {
+//			try {
+//				wait();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		System.out.println("inizio la ricezione");
 		outWriter.println("start");
 		outWriter.flush();
-		Start.setEnabled(false);
 		while(cmd != STOP) {
 			if(bir.hasNextLine()) {
 			data = bir.nextLine();
@@ -41,7 +40,7 @@ public class Starting extends Frame implements Runnable {
 			}
 		}
 		bir.close();
-		notifyAll();
+//		notifyAll();
 	}
 	
 }

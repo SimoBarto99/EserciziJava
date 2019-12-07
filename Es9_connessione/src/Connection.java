@@ -20,13 +20,13 @@ public class Connection extends Frame implements Runnable{
 	}
 	
 	public synchronized void run() {
-		while(cmd != CONNECT) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+//		while(cmd != CONNECT) {
+//			try {
+//				wait();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		try {
 			s = new Socket("127.0.0.1", 8080);
 			outWriter = new PrintWriter(s.getOutputStream());
