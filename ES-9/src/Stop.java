@@ -1,10 +1,18 @@
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class Stop implements Runnable {
-
+	Socket s;
+	PrintWriter in;
+	
+	public Stop(Socket s, PrintWriter in) {
+		this.s = s;
+		this.in = in;
+	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		in.println("stop");
+		in.flush();
 	}
 
 }

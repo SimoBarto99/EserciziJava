@@ -2,11 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class MyFrame extends JFrame implements ActionListener {
-	Connect c;
+	Connect c = null;
+	Start printer = null;
 	protected Socket s;
+	protected PrintWriter out;
+	protected Scanner in;
 	protected JFrame f;
 	protected String cmd = null;
 	protected final static String CONNECT = "connect";
@@ -82,23 +87,31 @@ public class MyFrame extends JFrame implements ActionListener {
 	
 	public void onConnect() {
 //		System.out.println("connect");
-		Thread t1 = new Thread(new Connect(cmd, ip, porta, s));
+		c = new Connect(cmd, ip, porta, s);
+		Thread t1 = new Thread(c);
 		t1.start();
 		cmd = null;
 	}
 	
 	public void onStart() {
-		System.out.println("start");
+//		System.out.println("start");
+		printer = new Start(this.c.getS(), out, in);
+		Thread t2 = new Thread(printer);
+		t2.start();
 		cmd = null;
 	}
 	
 	public void onStop() {
-		System.out.println("stop");
+//		System.out.println("stop");
+		Thread t3 = new Thread(new Stop(this.c.getS(), this.printer.getPrint()));
+		t3.start();
 		cmd = null;
 	}
 	
 	public void onDisconnect() {
-		System.out.println("disconnect");
+//		System.out.println("disconnect");
+		Thread t4 = new Thread(new Disconnect(this.c.getS(), this.printer.getPrint()));
+		t4.start();
 		cmd = null;
 	}
 
