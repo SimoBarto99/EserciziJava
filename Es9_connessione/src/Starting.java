@@ -23,13 +23,6 @@ public class Starting extends Frame implements Runnable {
 	}
 	@Override
 	public synchronized void run() {
-//		while(cmd != START) {
-//			try {
-//				wait();
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
 		System.out.println("inizio la ricezione");
 		outWriter.println("start");
 		outWriter.flush();

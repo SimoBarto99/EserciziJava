@@ -21,14 +21,6 @@ public class Stopping extends Frame implements Runnable {
 
 	@Override
 	public synchronized void run() {
-//		while(cmd != STOP) {
-//			try {
-//				wait();
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
-
 		outWriter.println("stop");
 		outWriter.flush();
 //		notifyAll();

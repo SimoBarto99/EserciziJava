@@ -35,14 +35,17 @@ public class MyFrame extends JFrame implements ActionListener {
 		connect.addActionListener(this);
 		
 		start = new JButton("start");
+		start.setEnabled(false);
 		start.setActionCommand(START);
 		start.addActionListener(this);
 		
 		stop = new JButton("stop");
+		stop.setEnabled(false);
 		stop.setActionCommand(STOP);
 		stop.addActionListener(this);
 		
 		disconnect = new JButton("disconnect");
+		disconnect.setEnabled(false);
 		disconnect.setActionCommand(DISCONNECT);
 		disconnect.addActionListener(this);
 		
@@ -87,6 +90,9 @@ public class MyFrame extends JFrame implements ActionListener {
 	
 	public void onConnect() {
 //		System.out.println("connect");
+		connect.setEnabled(false);
+		start.setEnabled(true);
+		disconnect.setEnabled(true);
 		c = new Connect(cmd, ip, porta, s);
 		Thread t1 = new Thread(c);
 		t1.start();
@@ -95,6 +101,9 @@ public class MyFrame extends JFrame implements ActionListener {
 	
 	public void onStart() {
 //		System.out.println("start");
+		start.setEnabled(false);
+		disconnect.setEnabled(false);
+		stop.setEnabled(true);
 		printer = new Start(this.c.getS(), out, in);
 		Thread t2 = new Thread(printer);
 		t2.start();
@@ -103,6 +112,9 @@ public class MyFrame extends JFrame implements ActionListener {
 	
 	public void onStop() {
 //		System.out.println("stop");
+		disconnect.setEnabled(true);
+		stop.setEnabled(false);
+		start.setEnabled(true);
 		Thread t3 = new Thread(new Stop(this.c.getS(), this.printer.getPrint()));
 		t3.start();
 		cmd = null;
@@ -110,6 +122,9 @@ public class MyFrame extends JFrame implements ActionListener {
 	
 	public void onDisconnect() {
 //		System.out.println("disconnect");
+		connect.setEnabled(true);
+		disconnect.setEnabled(false);
+		start.setEnabled(false);
 		Thread t4 = new Thread(new Disconnect(this.c.getS(), this.printer.getPrint()));
 		t4.start();
 		cmd = null;

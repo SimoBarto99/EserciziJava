@@ -20,6 +20,7 @@ public class Start implements Runnable {
 	@Override
 	public void run() {
 		try {
+			System.out.println("starto");
 			PrintWriter bir = new PrintWriter(s.getOutputStream());
 			Scanner scan = new Scanner(s.getInputStream());
 			bir.println("start");

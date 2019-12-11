@@ -25,7 +25,6 @@ public class Start implements Runnable {
 				System.out.println(data);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
