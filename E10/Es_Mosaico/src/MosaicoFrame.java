@@ -28,10 +28,12 @@ public class MosaicoFrame extends JFrame implements ActionListener {
 		
 		start = new JButton("Start");
 		start.setEnabled(false);
+		start.setEnabled(false);
 		start.setActionCommand(START);
 		start.addActionListener(this);
 		
 		stop = new JButton("Stop");
+		stop.setEnabled(false);
 		stop.setEnabled(false);
 		stop.setActionCommand(STOP);
 		stop.addActionListener(this);
@@ -80,22 +82,37 @@ public class MosaicoFrame extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 		case(CONNECT):
+			start.setEnabled(true);
+			connect.setEnabled(false);
+			disconnect.setEnabled(true);
 			cmd = CONNECT;
 			onConnect();
 			break;
 		case(START):
+			start.setEnabled(false);
+			stop.setEnabled(true);
+			disconnect.setEnabled(false);
 			cmd = START;
 			onStart();
 			break;
 		case(STOP):
 			cmd = STOP;
+			start.setEnabled(true);
+			stop.setEnabled(false);
+			disconnect.setEnabled(true);
+			clear.setEnabled(true);
 			onStop();
 			break;
 		case(DISCONNECT):
+			start.setEnabled(false);
+			clear.setEnabled(false);
+			disconnect.setEnabled(false);
+			connect.setEnabled(true);
 			cmd = DISCONNECT;
 			onDisconnect();
 			break;
 		case(CLEAR):
+			clear.setEnabled(false);
 			cmd = CLEAR;
 			onClear();
 			break;
@@ -106,40 +123,40 @@ public class MosaicoFrame extends JFrame implements ActionListener {
 		c = new Connect(this, cmd, s, ipAddres, porta);
 		Thread t1 = new Thread(c);
 		t1.start();
-		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
-		t.start();
-		notify();
+//		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
+//		t.start();
+//		notify();
 		connect.setEnabled(false);
 	}
 	public synchronized void onStart() {
 		cmd = START;
-		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
-		t.start();
-		notify();
+//		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
+//		t.start();
+//		notify();
 		Thread t2 = new Thread(new Start(cmd, this.c.getS(), griglia));
 		t2.start();
 	}
 	public synchronized void onStop() {
 		cmd = STOP;
-		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
-		t.start();
-		notify();
+//		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
+//		t.start();
+//		notify();
 		Thread t3 = new Thread(new Stop(cmd, this.c.getS()));
 		t3.start();
 	}
 	public synchronized void onDisconnect() {
 		cmd = DISCONNECT;
-		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
-		t.start();
-		notify();
+//		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
+//		t.start();
+//		notify();
 		Thread t4 = new Thread(new Disconnect(cmd, this.c.getS()));
 		t4.start();
 	}
 	public synchronized void onClear() {
 		cmd = CLEAR;
-		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
-		t.start();
-		notify();
+//		Thread t = new Thread(new GUIcontroller(this, cmd, connect, start, stop, clear, disconnect));
+//		t.start();
+//		notify();
 		Thread t4 = new Thread(new Clear(cmd, s, griglia));
 		t4.start();
 		System.out.println(cmd);

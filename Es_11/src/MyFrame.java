@@ -157,6 +157,7 @@ public class MyFrame extends JFrame implements ActionListener {
 	
 	public void onDownload() {
 		d = new Download(this.c.getS(), p, scan, sta, tar, lan);
+		
 		Thread t = new Thread(d);
 		t.start();
 	}

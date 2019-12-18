@@ -39,7 +39,7 @@ public class Download implements Runnable{
 						casata = nomi[2];
 						grado = nomi[3];
 						if(casata.equals("STARK"))
-							stark.setText(data);
+							stark.setText(data + "\n");
 						if(casata.equals("LANNISTER"))
 							lannister.setText(data);
 						if(casata.equals("TARGARYEN"))
